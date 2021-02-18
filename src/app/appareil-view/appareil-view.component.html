@@ -1,0 +1,26 @@
+<div class="col-xs-12">
+    <h2> Mes appareils </h2>
+
+    <p> Mis à jour : {{ lastUpdate | async | date | uppercase }}</p>
+
+    <ul class="list-group">
+      <app-appareil *ngFor="let appareil of appareils; let i = index" 
+        [indexOfAppareil]="i"
+        [appareilName]="appareil.name"
+        [appareilStatus]="appareil.status"
+        [id]="appareil.id"> 
+      </app-appareil>
+    </ul>
+
+    <!-- pour lier à une propriété, on utilise les crochets 
+         pour se lier à un event du DOM, on utilise les parenthèses 
+    -->
+
+    <button class="btn btn-success mr-2 mt-2" (click)="onAllumer()">
+      Tout allumer
+    </button>
+
+    <button class="btn btn-danger mt-2" (click)="onEteindre()">
+      Tout éteindre
+    </button>
+  </div>
