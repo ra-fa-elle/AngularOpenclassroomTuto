@@ -1,26 +1,17 @@
 import { Subject } from 'rxjs/Subject';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable()
 
 export class AppareilService {
 
   appareilSubject = new Subject<any[]>();
 
-  private appareils = [
-    {
-      id: 1,
-      name: 'TV',
-      status: 'allumé'
-    },
-    {
-      id: 2,
-      name: 'PC',
-      status: 'éteint'
-    },
-    {
-      id: 3,
-      name: 'Box internet',
-      status: 'allumé'
-    }
-  ];
+  private appareils = [];
+
+  // constructeur
+  constructor( private httpClient: HttpClient) {}
 
   // Méthode permettant au subject d'émettre la liste private des appareils
   emitAppareilSubject()
@@ -82,6 +73,36 @@ export class AppareilService {
 
     this.appareils.push(appareilObject);
     this.emitAppareilSubject();
+  }
 
+  saveAppareilToServer()
+  {
+    this.httpClient
+      .put('https://angulartuto-openclass-default-rtdb.firebaseio.com/appareils.json', this.appareils)
+      .subscribe(
+        () =>{
+          console.log('enregistrement terminé');
+        },
+        (error) => {
+          console.log('erreur de sauvegarde' + error);
+        }
+      )
+  }
+
+  getAppareilFromServer()
+  {
+    this.httpClient
+    .get<any[]>('https://angulartuto-openclass-default-rtdb.firebaseio.com/appareils.json')
+    .subscribe(
+      (response) =>
+      {
+        this.appareils = response;
+        this.emitAppareilSubject();
+      },
+      (error) =>
+      {
+        console.log('erreur de chargement' + error);
+      }
+    )
   }
 }

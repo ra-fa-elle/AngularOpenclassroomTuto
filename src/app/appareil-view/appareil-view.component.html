@@ -12,15 +12,13 @@
       </app-appareil>
     </ul>
 
-    <!-- pour lier à une propriété, on utilise les crochets 
-         pour se lier à un event du DOM, on utilise les parenthèses 
-    -->
-
     <button class="btn btn-success mr-2 mt-2" (click)="onAllumer()">
       Tout allumer
     </button>
-
-    <button class="btn btn-danger mt-2" (click)="onEteindre()">
+    <button class="btn btn-danger mr-2 mt-2" (click)="onEteindre()">
       Tout éteindre
     </button>
+
+    <button class="btn btn-success mr-2 mt-2" (click)="onSave()"> Enregistrer </button>
+    <button class="btn btn-primary mt-2" (click)="onFetch()"> Charger </button>
   </div>
